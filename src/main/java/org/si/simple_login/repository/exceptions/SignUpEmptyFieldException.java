@@ -1,6 +1,6 @@
 package org.si.simple_login.repository.exceptions;
 
-public class SignInException extends Exception{
+public class SignUpEmptyFieldException extends Exception{
 
     @Override
     public String getMessage(){

@@ -2,8 +2,8 @@ package org.si.simple_login.repository.impl;
 
 import org.si.simple_login.domain.User;
 import org.si.simple_login.repository.UserAuthenticationDAO;
-import org.si.simple_login.repository.exceptions.SignInException;
-import org.si.simple_login.repository.exceptions.SignUpException;
+import org.si.simple_login.repository.exceptions.SignUpEmptyFieldException;
+import org.si.simple_login.repository.exceptions.SignUpNonUniqueUserNameException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -79,10 +79,10 @@ public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
             );
         } catch(NullPointerException e){
 
-            throw new SignInException();
+            throw new SignUpEmptyFieldException();
         } catch(DuplicateKeyException e){
 
-            throw new SignUpException();
+            throw new SignUpNonUniqueUserNameException();
         }
     }
 

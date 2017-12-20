@@ -1,6 +1,6 @@
 package org.si.simple_login.repository.exceptions;
 
-public class SignUpException extends Exception {
+public class SignUpNonUniqueUserNameException extends Exception {
 
     @Override
     public String getMessage(){

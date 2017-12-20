@@ -2,9 +2,9 @@
 
 ### Technologies used:
 
-* Java
-* Maven
-* MySQL
+* Java (1.8.0_144)
+* Maven (3.3.9)
+* MySQL (5.7.19)
 * Spring Boot
 * Vaadin
 
@@ -34,7 +34,7 @@ For sign-up,<br>
 
 ![sign_up](/md_images/sign_up.PNG)
 
-For sign_in,<br>
+For sign-in,<br>
 
 ![sign_in](/md_images/sign_in.PNG)
 
@@ -46,15 +46,14 @@ If you do "select" on the MySQL shell console, you will see that the password is
 
 ### References
 
-For the basic design, Alejandro Duarte's Vaadin tutorials:<br>  
+For the basic design, Alejandro Duarte's Vaadin tutorials:<br>
 https://vaadin.com/blog/implementing-remember-me-with-vaadin<br>
 https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-<br>
 
 For more detailed introduction on Vaadin Binder, Kirill Bulatov's tutorial:<br>
 https://vaadin.com/blog/15624687<br>
 
-For Spring configuration of authentication,
-
+For Spring configuration of authentication,<br>
 eparvan's post: https://stackoverflow.com/questions/42562893/could-not-autowire-no-beans-of-userdetailservice-type-found<br>
 Roland Ewald's post: https://stackoverflow.com/questions/35912404/spring-boot-security-with-vaadin-login<br>
 Eugen Paraschiv's tutorial: http://www.baeldung.com/spring-security-registration-password-encoding-bcrypt<br>
