@@ -20,7 +20,7 @@ public interface UserAuthenticationDAO {
      * @param userRequest User object encapsulating the input form data, namely user_name, email, and password
      * @throws Exception passes messages to display to the front end
      */
-    void addNewUser(User userRequest)throws Exception;
+    void addNewUser(User userRequest) throws Exception;
 
     /**
      * Used to get the current user name from UserAuthenticationDAO class.

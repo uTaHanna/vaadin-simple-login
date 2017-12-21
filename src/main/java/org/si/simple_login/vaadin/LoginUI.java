@@ -1,6 +1,7 @@
 package org.si.simple_login.vaadin;
 
 import com.vaadin.data.Binder;
+import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -30,7 +31,7 @@ public class LoginUI extends UI {
 
     private final UserAuthenticationDAO userAuthenticationDAOSQL;
     private Binder<User> userBinder = new Binder<>();
-    private User user = new User();
+    private User user = new User("", "", "");
 
     @Autowired
     public LoginUI(UserAuthenticationDAO userAuthenticationDAOSQL){
@@ -57,6 +58,10 @@ public class LoginUI extends UI {
         userBinder.bind(userNameTextField, User::getUserName, User::setUserName);
         userBinder.bind(emailTextField, User::getEmail, User::setEmail);
         userBinder.bind(passwordTextField, User::getPassword, User::setPassword);
+//        TODO: disallow empty spaces in text fields (by adding validators?)
+//        userBinder.forField(userNameTextField).bind(User::getUserName, User::setUserName);
+//        userBinder.forField(emailTextField).bind(User::getEmail, User::setEmail);
+//        userBinder.forField(passwordTextField).bind(User::getPassword, User::setPassword);
         userBinder.setBean(user);
 
         signInButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);

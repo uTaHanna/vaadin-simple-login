@@ -2,8 +2,8 @@ package org.si.simple_login.repository.impl;
 
 import org.si.simple_login.domain.User;
 import org.si.simple_login.repository.UserAuthenticationDAO;
-import org.si.simple_login.repository.exceptions.SignUpEmptyFieldException;
-import org.si.simple_login.repository.exceptions.SignUpNonUniqueUserNameException;
+import org.si.simple_login.repository.exceptions.EmptyFieldException;
+import org.si.simple_login.repository.exceptions.NonUniqueUserNameException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -63,12 +63,17 @@ public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
     @Override
     public void addNewUser(User userRequest) throws Exception {
 
-        try{
-            // All form fields are required; if any of them is null, rethrow an exception.
-            String userName = userRequest.getUserName();
-            String email = userRequest.getEmail();
-            String password = userRequest.getPassword();
+        String userName = userRequest.getUserName();
+        String email = userRequest.getEmail();
+        String password = userRequest.getPassword();
 
+        // All form fields are required; if any of them is empty, throw an exception.
+        if(userName.equals("")|| email.equals("") || password.equals("")){
+
+            throw new EmptyFieldException();
+        }
+
+        try{
             // If the specified user_name (PK) is available for a new user,
             // insert the user object with encoded password; otherwise, rethrow an exception.
             userRequest.setPassword(passwordEncoder.encode(password));
@@ -77,12 +82,9 @@ public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
                 "INSERT INTO user(user_name, email, password) VALUES(?, ?, ?)",
                 userName, email, userRequest.getPassword()
             );
-        } catch(NullPointerException e){
-
-            throw new SignUpEmptyFieldException();
         } catch(DuplicateKeyException e){
 
-            throw new SignUpNonUniqueUserNameException();
+            throw new NonUniqueUserNameException();
         }
     }
 
