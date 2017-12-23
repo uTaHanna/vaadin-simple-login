@@ -1,6 +1,6 @@
 ## A Very Simple Vaadin Login Demo
 
-### Technologies used:
+### Technologies Used:
 
 * Java (1.8.0_144)
 * Maven (3.3.9)
@@ -13,21 +13,21 @@
 This small application shows password hashing by BCrypt within the framework of Spring Boot.<br>
 The design and implementation owe to several tutorials and other sources as acknowledged<br>
 in the references section below. In particular, if you are interested in building a similar<br>
-application by yourself, I would suggest starting with Alejandro's introductory tutorial<br>
-https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-, but you need<br>
-to add Spring Security for BCrypt when generating a project template by Spring Boot Initializer.
+application by yourself, I would suggest starting with [Alejandro's introductory Vaadin tutorial](https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-)<br>
+,but you need to add Spring Security for BCrypt when generating a project template by<br>
+Spring Boot Initializer.
 
 
 ### How to Run the Application
 
-1. Run MySQL and create a new database called "simple_login".
+1. Start MySQL and create a new database called "simple_login".
 1. Add a new table called "user" as follows:<br>
 CREATE TABLE user(user_name VARCHAR(50) PRIMARY KEY, email VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL);<br>
 1. Edit the application.properties file in the resources directory of the source code by adding<br>
-your MySQL credentials (and changing the default port if necessary).<br>
+your MySQL credentials (the port in the file is the default of MySQL).<br>
 1. Build the source code with Maven and then run the project jar file generated.<br>
-Alternatively, a simpler way is to just open the source code on IntelliJ and Click 'Run'.<br>
-1. Once Tomcat starts to run, go to localhost:8080, and click 'New User?' to sign up.<br>
+Alternatively, a simpler way is to just open the source code on IntelliJ and click 'Run'.<br>
+1. Once Tomcat starts, go to localhost:8080 and click 'New User?' to sign up.<br>
 1. After registering the new user, sign in with the credentials.<br>
 
 For sign-up,<br>
@@ -40,7 +40,7 @@ For sign-in,<br>
 
 ![main](/md_images/main.PNG)
 
-If you do "select" on the MySQL shell console, you will see that the password is in fact encrypted.<br>
+If you do SQL SELECT on the MySQL shell console, you will see that the password is in fact encrypted.<br>
 
 ![password_hashing](/md_images/password_hashing.PNG)
 
