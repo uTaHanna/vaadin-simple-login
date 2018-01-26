@@ -2,7 +2,9 @@ package org.si.simple_login.vaadin;
 
 public enum PagePaths {
 
-    MAIN_PAGE("main_page");
+    LOGIN(""),
+    SIGNUP("sign_up"),
+    MAIN("main");
 
     private String pagePath;
 

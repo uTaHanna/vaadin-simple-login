@@ -10,16 +10,17 @@ import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.vaadin.ui.UI.getCurrent;
-import static org.si.simple_login.vaadin.PagePaths.MAIN_PAGE;
+import static org.si.simple_login.vaadin.PagePaths.MAIN;
+import static org.si.simple_login.vaadin.PagePaths.SIGNUP;
 import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 
 @Component
-public class LoginUI extends CustomComponent implements View {
+public class LogInView extends CustomComponent implements View {
 
     private UserAuthenticationDAO userAuthenticationDAOSQL;
+
     private Binder<User> userBinder = new Binder<>();
-    private User user = new User("", "", "");
+    private User user = new User("", "");
     private TextField userNameTextField = new TextField("User Name");
     private PasswordField passwordTextField = new PasswordField("Password");
     private Button signInButton = new Button("Sign in", e ->  signIn(user));
@@ -38,7 +39,7 @@ public class LoginUI extends CustomComponent implements View {
         this.userAuthenticationDAOSQL = userAuthenticationDAOSQL;
     }
 
-    public LoginUI(){
+    public LogInView(){
 
         // Bind the user object to text fields for reading in form inputs
         userBinder.bind(userNameTextField, User::getUserName, User::setUserName);
@@ -47,7 +48,7 @@ public class LoginUI extends CustomComponent implements View {
 
         // Set up button and link
         signInButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        signUpLayout.addLayoutClickListener(e -> navigator.navigateTo(""));
+        signUpLayout.addLayoutClickListener(e -> navigator.navigateTo(SIGNUP.getPagePath()));
 
         // Arrange page components
         logInFormLayout.setSizeUndefined();
@@ -65,7 +66,7 @@ public class LoginUI extends CustomComponent implements View {
 
         if(userAuthenticationDAOSQL.checkAuthentication(userRequest)){
 
-            navigator.navigateTo(MAIN_PAGE.getPagePath());
+            navigator.navigateTo(MAIN.getPagePath());
         } else{
 
             Notification.show("Invalid user name or password", Notification.Type.ERROR_MESSAGE);

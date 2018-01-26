@@ -6,16 +6,18 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.stereotype.Component;
+
+import static org.si.simple_login.vaadin.PagePaths.LOGIN;
 import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 
 @Component
-public class MainPageUI extends CustomComponent implements View {
+public class MainView extends CustomComponent implements View {
 
-    public MainPageUI(){
+    public MainView(){
 
         Label label = new Label("You are logged in.");
         // Upon sign-out, redirect to sign-in
-        Button signOut = new Button("Sign out", e -> navigator.navigateTo(""));
+        Button signOut = new Button("Sign out", e -> navigator.navigateTo(LOGIN.getPagePath()));
 
         setCompositionRoot(new VerticalLayout(label, signOut));
     }
