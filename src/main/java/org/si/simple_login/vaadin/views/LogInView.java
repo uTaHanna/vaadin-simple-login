@@ -26,12 +26,6 @@ public class LogInView extends CustomComponent implements View {
     private Button signInButton = new Button("Sign in", e ->  signIn(user));
     private Label newUserLabel = new Label("<span style='cursor: pointer; color:blue'>new user?</span>",
             ContentMode.HTML);
-    private HorizontalLayout signUpLayout = new HorizontalLayout(newUserLabel);
-    private FormLayout logInFormLayout = new FormLayout(userNameTextField,
-                                                        passwordTextField,
-                                                        signUpLayout,
-                                                        signInButton);
-    private VerticalLayout logInPageLayout = new VerticalLayout(logInFormLayout);
 
     @Autowired
     public void setUserAuthenticationDAOSQL(UserAuthenticationDAO userAuthenticationDAOSQL){
@@ -41,6 +35,15 @@ public class LogInView extends CustomComponent implements View {
 
     public LogInView(){
 
+        // Initialize and arrange layout components
+        HorizontalLayout signUpLayout = new HorizontalLayout(newUserLabel);
+        FormLayout logInFormLayout = new FormLayout(userNameTextField, passwordTextField,
+                signUpLayout, signInButton);
+        VerticalLayout logInPageLayout = new VerticalLayout(logInFormLayout);
+        logInFormLayout.setSizeUndefined();
+        logInPageLayout.setSizeFull();
+        logInPageLayout.setComponentAlignment(logInFormLayout, Alignment.TOP_CENTER);
+
         // Bind the user object to text fields for reading in form inputs
         userBinder.bind(userNameTextField, User::getUserName, User::setUserName);
         userBinder.bind(passwordTextField, User::getPassword, User::setPassword);
@@ -49,11 +52,6 @@ public class LogInView extends CustomComponent implements View {
         // Set up button and link
         signInButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         signUpLayout.addLayoutClickListener(e -> navigator.navigateTo(SIGNUP.getPagePath()));
-
-        // Arrange page components
-        logInFormLayout.setSizeUndefined();
-        logInPageLayout.setSizeFull();
-        logInPageLayout.setComponentAlignment(logInFormLayout, Alignment.TOP_CENTER);
 
         setCompositionRoot(logInPageLayout);
     }

@@ -1,12 +1,10 @@
 package org.si.simple_login.vaadin;
 
+import com.vaadin.navigator.View;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.ui.UI;
-import org.si.simple_login.vaadin.views.LogInView;
-import org.si.simple_login.vaadin.views.MainView;
-import org.si.simple_login.vaadin.views.SignUpView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.si.simple_login.vaadin.PagePaths.LOGIN;
@@ -17,18 +15,18 @@ import static org.si.simple_login.vaadin.PagePaths.SIGNUP;
 public class ViewNavigator extends UI {
 
     public static SpringNavigator navigator;
-    private final LogInView logInView;
-    private final SignUpView signUpView;
-    private final MainView mainView;
+    private final View logInView;
+    private final View signUpView;
+    private final View mainView;
 
     @Autowired
-    public ViewNavigator(LogInView logInView, SignUpView signUpView,
-                         MainView mainView, SpringNavigator navigator){
+    public ViewNavigator(SpringNavigator navigator, View logInView,
+                         View signUpView, View mainView){
 
+        ViewNavigator.navigator = navigator;
         this.logInView = logInView;
         this.signUpView = signUpView;
         this.mainView = mainView;
-        ViewNavigator.navigator = navigator;
     }
 
     public void init(VaadinRequest request){

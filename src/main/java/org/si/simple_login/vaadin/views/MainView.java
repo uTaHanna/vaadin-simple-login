@@ -13,12 +13,14 @@ import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 @Component
 public class MainView extends CustomComponent implements View {
 
+    private Label label = new Label("You are logged in.");
+    private Button signOut = new Button("Sign out", e -> navigator.navigateTo(LOGIN.getPagePath()));
+
     public MainView(){
 
-        Label label = new Label("You are logged in.");
-        // Upon sign-out, redirect to sign-in
-        Button signOut = new Button("Sign out", e -> navigator.navigateTo(LOGIN.getPagePath()));
+        // Initialize layout component
+        VerticalLayout mainViewLayout = new VerticalLayout(label, signOut);
 
-        setCompositionRoot(new VerticalLayout(label, signOut));
+        setCompositionRoot(mainViewLayout);
     }
 }
