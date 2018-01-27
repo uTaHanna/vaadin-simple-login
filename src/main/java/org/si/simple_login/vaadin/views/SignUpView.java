@@ -46,8 +46,11 @@ public class SignUpView extends CustomComponent implements View {
         userBinder.bind(passwordTextField, User::getPassword, User::setPassword);
         userBinder.setBean(user);
 
-        // Set up button
+        // Set up button and fields
         signUpButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        userNameTextField.setRequiredIndicatorVisible(true);
+        emailTextField.setRequiredIndicatorVisible(true);
+        passwordTextField.setRequiredIndicatorVisible(true);
 
         setCompositionRoot(signUpPageLayout);
     }

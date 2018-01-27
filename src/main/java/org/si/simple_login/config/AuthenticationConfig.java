@@ -56,7 +56,7 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Paths are not secured for now as there is only one page, namely login.
+     * TODO: secure the main page
      * @param httpSecurity
      * @throws Exception
      */

@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static org.si.simple_login.vaadin.PagePaths.MAIN;
-import static org.si.simple_login.vaadin.PagePaths.SIGNUP;
+import static org.si.simple_login.vaadin.PagePaths.SIGN_UP;
 import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 
 @Component
-public class LogInView extends CustomComponent implements View {
+public class LoginView extends CustomComponent implements View {
 
     private UserAuthenticationDAO userAuthenticationDAOSQL;
 
@@ -33,12 +33,12 @@ public class LogInView extends CustomComponent implements View {
         this.userAuthenticationDAOSQL = userAuthenticationDAOSQL;
     }
 
-    public LogInView(){
+    public LoginView(){
 
         // Initialize and arrange layout components
         HorizontalLayout signUpLayout = new HorizontalLayout(newUserLabel);
         FormLayout logInFormLayout = new FormLayout(userNameTextField, passwordTextField,
-                signUpLayout, signInButton);
+                                                    signUpLayout, signInButton);
         VerticalLayout logInPageLayout = new VerticalLayout(logInFormLayout);
         logInFormLayout.setSizeUndefined();
         logInPageLayout.setSizeFull();
@@ -51,18 +51,22 @@ public class LogInView extends CustomComponent implements View {
 
         // Set up button and link
         signInButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        signUpLayout.addLayoutClickListener(e -> navigator.navigateTo(SIGNUP.getPagePath()));
+        signUpLayout.addLayoutClickListener(e -> navigator.navigateTo(SIGN_UP.getPagePath()));
 
         setCompositionRoot(logInPageLayout);
     }
 
     /**
-     * If the user has valid credentials, show the (mock) main page; else, show the error message
+     * If the user has valid credentials, show the main page; else, show the error message
      * @param userRequest User object encapsulating the input form data, namely user_name and password
      */
     private void signIn(User userRequest){
 
         if(userAuthenticationDAOSQL.checkAuthentication(userRequest)){
+
+            // Clear the text fields before redirecting
+            userNameTextField.setValue("");
+            passwordTextField.setValue("");
 
             navigator.navigateTo(MAIN.getPagePath());
         } else{

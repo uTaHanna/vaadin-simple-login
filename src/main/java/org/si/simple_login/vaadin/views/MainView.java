@@ -13,7 +13,7 @@ import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 @Component
 public class MainView extends CustomComponent implements View {
 
-    private Label label = new Label("You are logged in.");
+    private Label label = new Label("You are logged in");
     private Button signOut = new Button("Sign out", e -> navigator.navigateTo(LOGIN.getPagePath()));
 
     public MainView(){
