@@ -10,7 +10,7 @@
 
 ### Preliminary Remarks
 
-This small application shows password hashing by BCrypt within the framework of Spring Boot.<br>
+This small application shows password hashing by Spring BCrypt within the framework of Spring Boot.<br>
 The design and implementation owe to several tutorials and other sources as acknowledged<br>
 in the references section below. In particular, if you are interested in building a similar<br>
 application by yourself, I would suggest starting with [Alejandro's introductory Vaadin tutorial](https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-)<br>
@@ -52,6 +52,10 @@ https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-<br>
 
 For more detailed introduction on Vaadin Binder, Kirill Bulatov's tutorial:<br>
 https://vaadin.com/blog/15624687<br>
+
+For use of page navigation in Vaadin, the official documentation:<br>
+https://vaadin.com/docs/v8/framework/application/application-architecture.html<br>
+https://vaadin.com/docs/v8/framework/advanced/advanced-navigator.html#advanced.navigator<br> 
 
 For Spring configuration of authentication,<br>
 eparvan's post: https://stackoverflow.com/questions/42562893/could-not-autowire-no-beans-of-userdetailservice-type-found<br>
