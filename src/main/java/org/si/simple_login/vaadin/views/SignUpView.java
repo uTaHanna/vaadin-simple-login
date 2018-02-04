@@ -9,7 +9,7 @@ import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static org.si.simple_login.vaadin.PagePaths.LOGIN;
+import static org.si.simple_login.vaadin.ViewPaths.LOGIN;
 import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 
 @Component

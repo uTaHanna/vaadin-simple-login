@@ -1,5 +1,6 @@
 package org.si.simple_login.repository.impl;
 
+import com.vaadin.server.VaadinSession;
 import org.si.simple_login.domain.User;
 import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.si.simple_login.repository.exceptions.EmptyFieldException;
@@ -39,7 +40,6 @@ public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
                 "SELECT * FROM user WHERE user_name = ?",
                 new String[]{userRequest.getUserName()},
                 (rs, rowNum) -> new User(rs.getString("user_name"),
-                                         rs.getString("email"),
                                          rs.getString("password"))
         );
 
@@ -95,5 +95,15 @@ public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
     public String getAuthenticatedUserName(){
 
         return authenticatedUserName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void signOut(){
+
+        authenticatedUserName = null;
+        VaadinSession.getCurrent().close();
     }
 }

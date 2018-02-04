@@ -1,6 +1,7 @@
 package org.si.simple_login.vaadin.views;
 
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewBeforeLeaveEvent;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
@@ -10,7 +11,7 @@ import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static org.si.simple_login.vaadin.PagePaths.LOGIN;
+import static org.si.simple_login.vaadin.ViewPaths.LOGIN;
 import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 
 @Component
@@ -40,5 +41,12 @@ public class MainView extends CustomComponent implements View {
 
         currentUserName = userAuthenticationDAOSQL.getAuthenticatedUserName();
         label.setValue("You are logged in, " + currentUserName);
+    }
+
+    @Override
+    public void beforeLeave (ViewBeforeLeaveEvent event){
+
+        userAuthenticationDAOSQL.signOut();
+        event.navigate();
     }
 }

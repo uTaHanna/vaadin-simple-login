@@ -56,7 +56,7 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * TODO: secure the main page
+     * Note: view access control is done on the UI side by Vaadin; see the ViewNavigator class
      * @param httpSecurity
      * @throws Exception
      */

@@ -10,11 +10,11 @@
 
 ### Preliminary Remarks
 
-This small application shows password hashing by Spring BCrypt within the framework of Spring Boot.<br>
-The design and implementation owe to several tutorials and other sources as acknowledged<br>
-in the references section below. In particular, if you are interested in building a similar<br>
-application by yourself, I would suggest starting with [Alejandro's introductory Vaadin tutorial](https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-)<br>
-,but you need to add Spring Security for BCrypt when generating a project template by<br>
+This small application shows login authentication, using Spring BCrypt, within the framework of<br> 
+Spring Boot and Vaadin. The design and implementation owe to several tutorials and other sources<br>
+as acknowledged in the references section below. In particular, if you are interested in building a<br>
+similar application by yourself, I would suggest starting with [Alejandro's introductory Vaadin tutorial](https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-),<br>
+but you need to add Spring Security for BCrypt when generating a project template by<br>
 Spring Boot Initializer.
 
 
@@ -27,7 +27,7 @@ CREATE TABLE user(user_name VARCHAR(50) PRIMARY KEY, email VARCHAR(50) NOT NULL,
 your MySQL credentials (the port in the file is the default of MySQL).<br>
 1. Build the source code with Maven and then run the project jar file generated.<br>
 Alternatively, a simpler way is to just open the source code on IntelliJ and click 'Run'.<br>
-1. Once Tomcat starts, go to localhost:8080 and click 'New User?' to sign up.<br>
+1. Once Tomcat starts, go to localhost:8080/simple_login and click 'New User?' to sign up.<br>
 1. After registering the new user, sign in with the credentials.<br>
 
 For sign-up,<br>
@@ -53,9 +53,10 @@ https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-<br>
 For more detailed introduction on Vaadin Binder, Kirill Bulatov's tutorial:<br>
 https://vaadin.com/blog/15624687<br>
 
-For use of page navigation in Vaadin, the official documentation:<br>
+For use of view navigation in Vaadin, the official documentation:<br>
 https://vaadin.com/docs/v8/framework/application/application-architecture.html<br>
-https://vaadin.com/docs/v8/framework/advanced/advanced-navigator.html#advanced.navigator<br> 
+https://vaadin.com/docs/v8/framework/advanced/advanced-navigator.html#advanced.navigator<br>
+https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html<br> 
 
 For Spring configuration of authentication,<br>
 eparvan's post: https://stackoverflow.com/questions/42562893/could-not-autowire-no-beans-of-userdetailservice-type-found<br>
