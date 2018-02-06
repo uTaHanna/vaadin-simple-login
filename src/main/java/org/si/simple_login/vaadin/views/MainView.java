@@ -20,7 +20,7 @@ public class MainView extends CustomComponent implements View {
     private UserAuthenticationDAO userAuthenticationDAOSQL;
     private String currentUserName;
     private Label label = new Label();
-    private Button signOut = new Button("Sign out", e -> navigator.navigateTo(LOGIN.getPagePath()));
+    private Button signOut = new Button("Sign out", e -> navigator.navigateTo(LOGIN.getViewPath()));
 
     @Autowired
     public void setUserAuthenticationDAOSQL(UserAuthenticationDAO userAuthenticationDAOSQL){

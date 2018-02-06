@@ -7,15 +7,15 @@ public enum ViewPaths {
     SIGN_UP("/sign_up"),
     MAIN("/main");
 
-    private String pagePath;
+    private String viewPath;
 
-    ViewPaths(String pagePath) {
+    ViewPaths(String viewPath) {
 
-        this.pagePath = pagePath;
+        this.viewPath = viewPath;
     }
 
-    public String getPagePath(){
+    public String getViewPath(){
 
-        return pagePath;
+        return viewPath;
     }
 }

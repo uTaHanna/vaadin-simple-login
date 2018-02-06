@@ -52,7 +52,7 @@ public class LoginView extends CustomComponent implements View {
 
         // Set up button and link
         signInButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        signUpLayout.addLayoutClickListener(e -> navigator.navigateTo(SIGN_UP.getPagePath()));
+        signUpLayout.addLayoutClickListener(e -> navigator.navigateTo(SIGN_UP.getViewPath()));
 
         setCompositionRoot(logInPageLayout);
     }
@@ -65,7 +65,7 @@ public class LoginView extends CustomComponent implements View {
 
         if(userAuthenticationDAOSQL.checkAuthentication(userRequest)){
 
-            navigator.navigateTo(MAIN.getPagePath());
+            navigator.navigateTo(MAIN.getViewPath());
         } else{
 
             Notification.show("Invalid user name or password", Notification.Type.ERROR_MESSAGE);

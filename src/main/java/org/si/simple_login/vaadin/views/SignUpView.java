@@ -63,7 +63,7 @@ public class SignUpView extends CustomComponent implements View {
 
         try {
             userAuthenticationDAOSQL.addNewUser(userRequest);
-            navigator.navigateTo(LOGIN.getPagePath());
+            navigator.navigateTo(LOGIN.getViewPath());
         } catch (Exception e){
 
             Notification.show("Sign up failed: " + e.getMessage(),

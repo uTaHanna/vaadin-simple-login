@@ -52,12 +52,13 @@ public class ViewNavigator extends UI {
     public void init(VaadinRequest request){
 
         navigator.init(this, this);
-        navigator.addView(LOGIN.getPagePath(), loginView);
-        navigator.addView(SIGN_UP.getPagePath(), signUpView);
-        navigator.addView(MAIN.getPagePath(), mainView);
+        navigator.addView(LOGIN.getViewPath(), loginView);
+        navigator.addView(SIGN_UP.getViewPath(), signUpView);
+        navigator.addView(MAIN.getViewPath(), mainView);
 
         // restricts access to the main view, allowing only authenticated users to proceed
         navigator.addViewChangeListener(viewChangeEvent -> {
+            // beforeViewChange of interface ViewChangeListener expressed by lambda
 
             boolean accessPermission = false;
 
@@ -65,7 +66,7 @@ public class ViewNavigator extends UI {
                     userAuthenticationDAOSQL.getAuthenticatedUserName() == null){
 
                 Notification.show("Please log in", Notification.Type.ERROR_MESSAGE);
-                navigator.navigateTo(LOGIN.getPagePath());
+                navigator.navigateTo(LOGIN.getViewPath());
             } else{
 
                 accessPermission = true;

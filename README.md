@@ -26,8 +26,8 @@ CREATE TABLE user(user_name VARCHAR(50) PRIMARY KEY, email VARCHAR(50) NOT NULL,
 1. Edit the application.properties file in the resources directory of the source code by adding<br>
 your MySQL credentials (the port in the file is the default of MySQL).<br>
 1. Build the source code with Maven and then run the project jar file generated.<br>
-Alternatively, a simpler way is to just open the source code on IntelliJ and click 'Run'.<br>
-1. Once Tomcat starts, go to localhost:8080/simple_login and click 'New User?' to sign up.<br>
+Alternatively, a simpler way is to just open the source code on IntelliJ and click "Run".<br>
+1. Once Tomcat starts, go to localhost:8080/simple_login and click "New User?" to sign up.<br>
 1. After registering the new user, sign in with the credentials.<br>
 
 For sign-up,<br>
@@ -62,7 +62,7 @@ For Spring configuration of authentication,<br>
 eparvan's post: https://stackoverflow.com/questions/42562893/could-not-autowire-no-beans-of-userdetailservice-type-found<br>
 Roland Ewald's post: https://stackoverflow.com/questions/35912404/spring-boot-security-with-vaadin-login<br>
 Eugen Paraschiv's tutorial: http://www.baeldung.com/spring-security-registration-password-encoding-bcrypt<br>
-Spring Documentation: https://docs.spring.io/spring-security/site/docs/current/reference/html/jc.html
+Spring documentation: https://docs.spring.io/spring-security/site/docs/current/reference/html/jc.html
 
  
 
