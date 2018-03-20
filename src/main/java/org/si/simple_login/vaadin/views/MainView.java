@@ -3,18 +3,20 @@ package org.si.simple_login.vaadin.views;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewBeforeLeaveEvent;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import static org.si.simple_login.vaadin.ViewPaths.LOGIN;
 import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 
-@Component
+@SpringComponent
+@UIScope
 public class MainView extends CustomComponent implements View {
 
     private UserAuthenticationDAO userAuthenticationDAOSQL;

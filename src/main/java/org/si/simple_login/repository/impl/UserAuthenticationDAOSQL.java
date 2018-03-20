@@ -1,5 +1,6 @@
 package org.si.simple_login.repository.impl;
 
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinSession;
 import org.si.simple_login.domain.User;
 import org.si.simple_login.repository.UserAuthenticationDAO;
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import static org.si.simple_login.vaadin.ViewPaths.LOGIN;
 
 @Repository
 public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
@@ -105,5 +108,6 @@ public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
 
         authenticatedUserName = null;
         VaadinSession.getCurrent().close();
+        Page.getCurrent().setLocation(LOGIN.getViewPath());
     }
 }

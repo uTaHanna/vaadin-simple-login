@@ -3,16 +3,19 @@ package org.si.simple_login.vaadin.views;
 import com.vaadin.data.Binder;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewBeforeLeaveEvent;
+import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import org.si.simple_login.domain.User;
 import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import static org.si.simple_login.vaadin.ViewPaths.LOGIN;
 import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 
-@Component
+@SpringComponent
+@UIScope
 public class SignUpView extends CustomComponent implements View {
 
     private UserAuthenticationDAO userAuthenticationDAOSQL;
@@ -69,5 +72,15 @@ public class SignUpView extends CustomComponent implements View {
             Notification.show("Sign up failed: " + e.getMessage(),
                     Notification.Type.ERROR_MESSAGE);
         }
+    }
+
+    @Override
+    public void beforeLeave (ViewBeforeLeaveEvent event){
+
+        // Clear the text fields before redirection
+        userNameTextField.setValue("");
+        emailTextField.setValue("");
+        passwordTextField.setValue("");
+        event.navigate();
     }
 }

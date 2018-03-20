@@ -23,7 +23,8 @@ import static org.si.simple_login.vaadin.ViewPaths.SIGN_UP;
  * More detailed orientation on the use of Vaadin binders was gained from the tutorial by Kirill Bulatov
  * (https://vaadin.com/blog/15624687). The page navigation is based on the official
  * Vaadin documentation (https://vaadin.com/docs/v8/framework/advanced/advanced-navigator.html#advanced.navigator
- * https://vaadin.com/docs/v8/framework/application/application-architecture.html).
+ * https://vaadin.com/docs/v8/framework/application/application-architecture.html), while basic knowledge of
+ * use of Spring beans in Vaadin was learnt from this tutorial: https://vaadin.github.io/spring-tutorial/
  *
  * View access control logic is from the example in the official Vaadin documentation:
  * https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html
