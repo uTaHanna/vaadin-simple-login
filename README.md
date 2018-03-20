@@ -72,11 +72,11 @@ Spring documentation: https://docs.spring.io/spring-security/site/docs/current/r
 Vaadin YouTube channel:<br>
 https://www.youtube.com/user/vaadinofficial/videos
 
-A very helpful first tutorial on MySQL by Chua:<br>  
+A very helpful first tutorial on MySQL by Chua:<br>
 https://www.ntu.edu.sg/home/ehchua/programming/sql/MySQL_HowTo.html
 
 A relatively accessible introduction to Spring, worth reading before tackling<br>
-the official documentation<br>      
+the official documentation:<br>
 Johnson, Rod. “J2EE development frameworks.” Computer 38.1 (2005): 107-110
   
   
