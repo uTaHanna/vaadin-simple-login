@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static org.si.simple_login.vaadin.ViewPaths.LOGIN;
 
 @Repository
 public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
@@ -108,6 +107,6 @@ public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
 
         authenticatedUserName = null;
         VaadinSession.getCurrent().close();
-        Page.getCurrent().setLocation(LOGIN.getViewPath());
+        Page.getCurrent().reload();
     }
 }

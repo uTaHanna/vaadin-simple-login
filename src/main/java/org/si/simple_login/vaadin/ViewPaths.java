@@ -4,8 +4,8 @@ package org.si.simple_login.vaadin;
 public enum ViewPaths {
 
     LOGIN(""),
-    SIGN_UP("/sign_up"),
-    MAIN("/main");
+    SIGN_UP("sign_up"),
+    MAIN("main");
 
     private String viewPath;
 

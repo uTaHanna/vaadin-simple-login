@@ -1,5 +1,6 @@
 package org.si.simple_login.vaadin;
 
+import com.vaadin.navigator.PushStateNavigation;
 import com.vaadin.navigator.View;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -30,7 +31,8 @@ import static org.si.simple_login.vaadin.ViewPaths.SIGN_UP;
  * https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html
  */
 
-@SpringUI
+@SpringUI(path="simple_login")
+@PushStateNavigation
 public class ViewNavigator extends UI {
 
     public static SpringNavigator navigator;
