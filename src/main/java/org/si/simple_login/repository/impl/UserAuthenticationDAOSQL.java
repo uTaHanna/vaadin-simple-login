@@ -18,7 +18,9 @@ import java.util.List;
 @Repository
 public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
 
-    private String authenticatedUserName;
+    // stores the user name during the session; the string serves as the key for the value
+    public static final String AUTHENTICATED_USER_NAME = "authenticatedUserName";
+
     private final JdbcTemplate jdbcTemplate;
     private final PasswordEncoder passwordEncoder;
 
@@ -52,7 +54,7 @@ public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
             if(passwordEncoder.matches(userRequest.getPassword(), user.getPassword())) {
 
                 result = true;
-                authenticatedUserName = user.getUserName();
+                VaadinSession.getCurrent().setAttribute(AUTHENTICATED_USER_NAME, user.getUserName());
             }
         }
 
@@ -94,18 +96,8 @@ public class UserAuthenticationDAOSQL implements UserAuthenticationDAO {
      * {@inheritDoc}
      */
     @Override
-    public String getAuthenticatedUserName(){
-
-        return authenticatedUserName;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void signOut(){
 
-        authenticatedUserName = null;
         VaadinSession.getCurrent().close();
         Page.getCurrent().reload();
     }

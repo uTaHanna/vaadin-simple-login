@@ -3,11 +3,12 @@ package org.si.simple_login.vaadin;
 import com.vaadin.navigator.PushStateNavigation;
 import com.vaadin.navigator.View;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
-import org.si.simple_login.repository.UserAuthenticationDAO;
+import org.si.simple_login.repository.impl.UserAuthenticationDAOSQL;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.si.simple_login.vaadin.ViewPaths.LOGIN;
@@ -39,17 +40,14 @@ public class ViewNavigator extends UI {
     private final View loginView;
     private final View signUpView;
     private final View mainView;
-    private final UserAuthenticationDAO userAuthenticationDAOSQL;
 
     @Autowired
-    public ViewNavigator(SpringNavigator navigator, View loginView,
-                         View signUpView, View mainView, UserAuthenticationDAO userAuthenticationDAOSQL){
+    public ViewNavigator(SpringNavigator navigator, View loginView, View signUpView, View mainView){
 
         ViewNavigator.navigator = navigator;
         this.loginView = loginView;
         this.signUpView = signUpView;
         this.mainView = mainView;
-        this.userAuthenticationDAOSQL = userAuthenticationDAOSQL;
     }
 
     public void init(VaadinRequest request){
@@ -59,14 +57,14 @@ public class ViewNavigator extends UI {
         navigator.addView(SIGN_UP.getViewPath(), signUpView);
         navigator.addView(MAIN.getViewPath(), mainView);
 
-        // restricts access to the main view, allowing only authenticated users to proceed
+        // allows only authenticated users into the main page; attempts to access by the url will fail
         navigator.addViewChangeListener(viewChangeEvent -> {
-            // beforeViewChange of interface ViewChangeListener expressed by lambda
+            // beforeViewChange of interface ViewChangeListener implemented by lambda
 
             boolean accessPermission = false;
 
             if (viewChangeEvent.getNewView().equals(mainView) &&
-                    userAuthenticationDAOSQL.getAuthenticatedUserName() == null){
+                    VaadinSession.getCurrent().getAttribute(UserAuthenticationDAOSQL.AUTHENTICATED_USER_NAME) == null){
 
                 Notification.show("Please log in", Notification.Type.ERROR_MESSAGE);
                 navigator.navigateTo(LOGIN.getViewPath());

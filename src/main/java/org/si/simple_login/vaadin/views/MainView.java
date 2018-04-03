@@ -3,6 +3,7 @@ package org.si.simple_login.vaadin.views;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewBeforeLeaveEvent;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
@@ -10,6 +11,7 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import org.si.simple_login.repository.UserAuthenticationDAO;
+import org.si.simple_login.repository.impl.UserAuthenticationDAOSQL;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.si.simple_login.vaadin.ViewPaths.LOGIN;
@@ -41,7 +43,8 @@ public class MainView extends CustomComponent implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event){
 
-        currentUserName = userAuthenticationDAOSQL.getAuthenticatedUserName();
+        currentUserName =
+                (String) VaadinSession.getCurrent().getAttribute(UserAuthenticationDAOSQL.AUTHENTICATED_USER_NAME);
         label.setValue("You are logged in, " + currentUserName);
     }
 

@@ -23,12 +23,6 @@ public interface UserAuthenticationDAO {
     void addNewUser(User userRequest) throws Exception;
 
     /**
-     * Used to get the current user name from UserAuthenticationDAO class
-     * @return the user_name of the user
-     */
-    String getAuthenticatedUserName();
-
-    /**
      * Manages sign-out
      */
     void signOut();
