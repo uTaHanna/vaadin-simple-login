@@ -60,7 +60,7 @@ https://vaadin.com/docs/v8/framework/advanced/advanced-navigator.html#advanced.n
 https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html<br>
 https://vaadin.github.io/spring-tutorial/
 
-For UI styling,
+For UI styling,<br>
 https://vaadin.com/docs/v8/framework/themes/themes-overview.html<br>
 https://vaadin.com/docs/v8/framework/themes/themes-creating.html  
 
