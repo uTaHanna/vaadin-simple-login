@@ -1,0 +1,15 @@
+/* A test of Vaadin UI styling based on the simple example here:
+   https://vaadin.com/docs/v8/framework/themes/themes-creating.html */
+
+/* Ignore the IntelliJ error sign for this import statement */
+@import "../valo/valo.scss";
+
+@mixin custom_theme {
+
+  @include valo;
+
+  .v-button {
+    background: #9cd8fa;
+    border-color: #1d7abe;
+  }
+}

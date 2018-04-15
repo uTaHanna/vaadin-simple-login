@@ -58,7 +58,11 @@ For use of view navigation and Spring beans in Vaadin, their documentation and t
 https://vaadin.com/docs/v8/framework/application/application-architecture.html<br>
 https://vaadin.com/docs/v8/framework/advanced/advanced-navigator.html#advanced.navigator<br>
 https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html<br>
-https://vaadin.github.io/spring-tutorial/ 
+https://vaadin.github.io/spring-tutorial/
+
+For UI styling,
+https://vaadin.com/docs/v8/framework/themes/themes-overview.html<br>
+https://vaadin.com/docs/v8/framework/themes/themes-creating.html  
 
 For Spring configuration of authentication,<br>
 eparvan's post: https://stackoverflow.com/questions/42562893/could-not-autowire-no-beans-of-userdetailservice-type-found<br>
