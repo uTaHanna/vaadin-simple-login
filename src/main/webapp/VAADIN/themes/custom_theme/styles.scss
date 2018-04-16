@@ -1,6 +1,8 @@
+@import "addons";
 @import "custom_theme";
 
 .custom_theme {
 
+  @include addons;
   @include custom_theme;
 }

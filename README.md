@@ -24,9 +24,10 @@ in starting your own project.
 1. Start MySQL and create a new database called "simple_login".
 1. Add a new table called "user" as follows:<br>
 CREATE TABLE user(user_name VARCHAR(50) PRIMARY KEY, email VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL);<br>
-1. Open the project on IntelliJ Ultimate and edit the application.properties file<br>
-in the resources directory by adding your MySQL credentials (the port in the file is the default of MySQL).<br>
-1. Click "Run".<br>
+1. Edit the application.properties file in the resources directory of the source code by adding<br>
+your MySQL credentials (the port in the file is the default of MySQL).<br>
+1. Build the source code with Maven and then run the project jar file generated.<br>
+Alternatively, a simpler way is to just open the source code on IntelliJ Ultimate and click "Run".<br>
 1. Once Tomcat starts, go to localhost:8080/simple_login and click "New User?" to sign up.<br>
 1. After registering the new user, sign in with the credentials.<br>
 
@@ -60,8 +61,8 @@ https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html<br>
 https://vaadin.github.io/spring-tutorial/
 
 For UI styling,<br>
-https://vaadin.com/docs/v8/framework/themes/themes-overview.html<br>
-https://vaadin.com/docs/v8/framework/themes/themes-creating.html  
+sothawo's post on mvn build: https://www.sothawo.com/2015/06/custom-theme-for-a-vaadin-spring-boot-application/<br>
+Vaadin documentation: https://vaadin.com/docs/v8/framework/themes/themes-creating.html<br>  
 
 For Spring configuration of authentication,<br>
 eparvan's post: https://stackoverflow.com/questions/42562893/could-not-autowire-no-beans-of-userdetailservice-type-found<br>
