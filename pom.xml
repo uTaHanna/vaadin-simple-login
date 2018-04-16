@@ -87,17 +87,17 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-			    <groupId>com.vaadin</groupId>
-			    <artifactId>vaadin-maven-plugin</artifactId>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-maven-plugin</artifactId>
 				<version>${vaadin.version}</version>
-			    <executions>
-				    <execution>
-					    <goals>
-						    <goal>update-theme</goal>
-						    <goal>compile-theme</goal>
+				<executions>
+					<execution>
+						<goals>
+							<goal>update-theme</goal>
+							<goal>compile-theme</goal>
 						</goals>
-				    </execution>
-			    </executions>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
