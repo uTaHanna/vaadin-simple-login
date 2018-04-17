@@ -14,8 +14,6 @@ target/
 *.iws
 *.iml
 *.ipr
-*.scss.cache
-*.css
 
 ### NetBeans ###
 nbproject/private/

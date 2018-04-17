@@ -61,7 +61,7 @@ https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html<br>
 https://vaadin.github.io/spring-tutorial/
 
 For UI styling,<br>
-sothawo's post on mvn build: https://www.sothawo.com/2015/06/custom-theme-for-a-vaadin-spring-boot-application/<br>
+Vaadin forum thread on resources configuration: https://vaadin.com/forum/thread/12163090<br>
 Vaadin documentation: https://vaadin.com/docs/v8/framework/themes/themes-creating.html<br>  
 
 For Spring configuration of authentication,<br>

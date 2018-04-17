@@ -1,0 +1,11 @@
+/* For configuration needed to add VAADIN style sheets to the jar,
+   I followed suggestions in this thread: https://vaadin.com/forum/thread/12163090 */
+
+@import "addons";
+@import "custom_theme";
+
+.custom_theme {
+
+  @include addons;
+  @include custom_theme;
+}
