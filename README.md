@@ -1,6 +1,6 @@
 ## A Very Simple Vaadin Login Demo
 
-### Technologies Used:
+### Technologies Used
 
 * Java (1.8.0_144)
 * Maven (3.3.9)
@@ -18,7 +18,7 @@ but you need to add Spring Security for BCrypt when generating a project templat
 Spring Initializr. I also listed sources, including those on MySQL and Spring, which might help you<br>
 in starting your own project. 
 
-I would also mention here that s false warning from SpringUIProvider about a missing UI, which<br>
+I would also mention here that a false warning from SpringUIProvider about a missing UI, which<br>
 you see on the console when testing the application, is ascribable to [this bug with Vaadin](https://github.com/vaadin/spring/issues/254).
     
 ### How to Run the Application
@@ -84,7 +84,7 @@ https://www.ntu.edu.sg/home/ehchua/programming/sql/MySQL_HowTo.html
 
 A relatively accessible introduction to Spring, worth reading before tackling<br>
 the official documentation:<br>
-Johnson, Rod. “J2EE development frameworks.” Computer 38.1 (2005): 107-110
+Johnson, Rod. “J2EE development frameworks.” <u>Computer</u> 38.1 (2005): 107-110
   
   
 
