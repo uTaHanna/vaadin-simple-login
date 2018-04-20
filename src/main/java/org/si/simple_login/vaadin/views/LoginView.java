@@ -5,23 +5,22 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewBeforeLeaveEvent;
 import com.vaadin.shared.ui.ContentMode;
-import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import org.si.simple_login.domain.User;
 import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.si.simple_login.vaadin.ViewPaths.MAIN;
-import static org.si.simple_login.vaadin.ViewPaths.SIGN_UP;
 import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 
-@SpringComponent
+@SpringView(name = LoginView.NAME)
 @UIScope
 public class LoginView extends CustomComponent implements View {
 
     private UserAuthenticationDAO userAuthenticationDAOSQL;
 
+    public static final String NAME = "";
     private Binder<User> userBinder = new Binder<>();
     private User user = new User("", "");
     private TextField userNameTextField = new TextField("User Name");
@@ -54,7 +53,7 @@ public class LoginView extends CustomComponent implements View {
 
         // Set up button and link
         signInButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        signUpLayout.addLayoutClickListener(e -> navigator.navigateTo(SIGN_UP.getViewPath()));
+        signUpLayout.addLayoutClickListener(e -> navigator.navigateTo(SignUpView.NAME));
 
         setCompositionRoot(logInPageLayout);
     }
@@ -67,7 +66,7 @@ public class LoginView extends CustomComponent implements View {
 
         if(userAuthenticationDAOSQL.checkAuthentication(userRequest)){
 
-            navigator.navigateTo(MAIN.getViewPath());
+            navigator.navigateTo(MainView.NAME);
         } else{
 
             Notification.show("Invalid user name or password", Notification.Type.ERROR_MESSAGE);

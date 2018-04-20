@@ -18,7 +18,9 @@ but you need to add Spring Security for BCrypt when generating a project templat
 Spring Initializr. I also listed sources, including those on MySQL and Spring, which might help you<br>
 in starting your own project. 
 
-
+I would also mention here that s false warning from SpringUIProvider about a missing UI, which<br>
+you see on the console when testing the application, is ascribable to [this bug with Vaadin](https://github.com/vaadin/spring/issues/254).
+    
 ### How to Run the Application
 
 1. Start MySQL and create a new database called "simple_login".
@@ -58,6 +60,7 @@ For use of view navigation and Spring beans in Vaadin, their documentation and t
 https://vaadin.com/docs/v8/framework/application/application-architecture.html<br>
 https://vaadin.com/docs/v8/framework/advanced/advanced-navigator.html#advanced.navigator<br>
 https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html<br>
+https://vaadin.com/docs/v8/framework/advanced/advanced-spring.html<br>
 https://vaadin.github.io/spring-tutorial/
 
 For UI styling,<br>

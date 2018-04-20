@@ -4,22 +4,22 @@ import com.vaadin.data.Binder;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewBeforeLeaveEvent;
-import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import org.si.simple_login.domain.User;
 import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.si.simple_login.vaadin.ViewPaths.LOGIN;
 import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 
-@SpringComponent
+@SpringView(name = SignUpView.NAME)
 @UIScope
 public class SignUpView extends CustomComponent implements View {
 
     private UserAuthenticationDAO userAuthenticationDAOSQL;
 
+    public static final String NAME = "sign_up";
     private Binder<User> userBinder = new Binder<>();
     private User user = new User("", "", "");
     private TextField userNameTextField = new TextField("User Name");
@@ -66,7 +66,7 @@ public class SignUpView extends CustomComponent implements View {
 
         try {
             userAuthenticationDAOSQL.addNewUser(userRequest);
-            navigator.navigateTo(LOGIN.getViewPath());
+            navigator.navigateTo(LoginView.NAME);
         } catch (Exception e){
 
             Notification.show("Sign up failed: " + e.getMessage(),
