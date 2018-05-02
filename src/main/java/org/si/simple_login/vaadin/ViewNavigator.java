@@ -1,24 +1,30 @@
 package org.si.simple_login.vaadin;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.PushStateNavigation;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.spring.navigator.SpringNavigator;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
+import com.vaadin.ui.*;
+import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.si.simple_login.repository.impl.UserAuthenticationDAOSQL;
 import org.si.simple_login.vaadin.views.LoginView;
 import org.si.simple_login.vaadin.views.MainView;
+import org.si.simple_login.vaadin.views.ProfileView;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
 
 
 /**
  * The basic UI design of this app and so the related backend functionalities are
- * based on the Vaadin tutorial by Alejandro Duarte
- * (https://vaadin.com/blog/implementing-remember-me-with-vaadin). More generally,
+ * based on the Vaadin tutorials by Alejandro Duarte
+ * (https://vaadin.com/blog/implementing-remember-me-with-vaadin
+ * https://www.youtube.com/watch?v=-xejxaIQTO8). More generally,
  * my underlying background knowledge of Vaadin apps owes to another tutorial by
  * the same author (https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-).
  *
@@ -40,35 +46,82 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ViewNavigator extends UI {
 
     public static SpringNavigator navigator;
+    private UserAuthenticationDAO userAuthenticationDAO;
+    private ComponentContainer componentContainer = new Navigator.EmptyView();
+    private MenuBar navBar = new MenuBar();
+    private HashSet<String> restrictedViewNames = new HashSet<>();
 
     @Autowired
-    public void setNavigator(SpringNavigator navigator){
+    public ViewNavigator(SpringNavigator navigator, UserAuthenticationDAOSQL userAuthenticationDAOSQL){
 
         ViewNavigator.navigator = navigator;
+        this.userAuthenticationDAO = userAuthenticationDAOSQL;
     }
 
     public void init(VaadinRequest request){
 
-        navigator.init(this, this);
+        // to be made into a navigation bar in the style sheet
+        navBar.addItem("Home", null, e -> navigator.navigateTo(MainView.NAME));
+        navBar.addItem("Profile", null, e -> navigator.navigateTo(ProfileView.NAME));
+        navBar.addItem("Sign Out", null, e -> signOut());
 
-        // allows only authenticated users into the main page; attempts to access by the url will fail
-        navigator.addViewChangeListener(viewChangeEvent -> {
-            // beforeViewChange of interface ViewChangeListener implemented by lambda
+        componentContainer.setSizeFull();
+        VerticalLayout overarchingLayout = new VerticalLayout(navBar, componentContainer);
+        navBar.setVisible(false);
+        setContent(overarchingLayout);
 
-            boolean accessPermission = false;
-            String viewClassName = viewChangeEvent.getNewView().getClass().getSimpleName().toLowerCase();
+        navigator.init(this, componentContainer);
 
-            if (viewClassName.contains(MainView.NAME) &&
-                    VaadinSession.getCurrent().getAttribute(UserAuthenticationDAOSQL.AUTHENTICATED_USER_NAME) == null){
+        restrictedViewNames.add(MainView.NAME);
+        restrictedViewNames.add(ProfileView.NAME);
 
-                Notification.show("Please log in", Notification.Type.ERROR_MESSAGE);
-                navigator.navigateTo(LoginView.NAME);
-            } else{
+        navigator.addViewChangeListener(new ViewChangeListener(){
 
-                accessPermission = true;
+            // allows only authenticated users into the main page; attempts to access by the url will fail
+            @Override
+            public boolean beforeViewChange(ViewChangeEvent viewChangeEvent){
+
+                boolean accessPermission = false;
+
+                if(isRestrictedView(viewChangeEvent) &&
+                        VaadinSession.getCurrent().getAttribute(UserAuthenticationDAOSQL.AUTHENTICATED_USER_NAME) == null){
+
+                    Notification.show("Please log in", Notification.Type.ERROR_MESSAGE);
+                    navigator.navigateTo(LoginView.NAME);
+                } else{
+
+                    accessPermission = true;
+                }
+
+                return accessPermission;
             }
 
-            return accessPermission;
+            @Override
+            public void afterViewChange(ViewChangeEvent viewChangeEvent){
+
+                if(isRestrictedView(viewChangeEvent)){
+
+                    navBar.setVisible(true);
+                } else{
+
+                    navBar.setVisible(false);
+                }
+            }
         });
+    }
+
+    private boolean isRestrictedView(ViewChangeListener.ViewChangeEvent viewChangeEvent){
+
+        String viewNameSuffix = "view";
+        String viewClassNameTemp = viewChangeEvent.getNewView().getClass().getSimpleName().toLowerCase();
+        String viewClassName = viewClassNameTemp.split(viewNameSuffix)[0];
+
+        return restrictedViewNames.contains(viewClassName);
+    }
+
+    private void signOut(){
+
+        navigator.navigateTo(LoginView.NAME);
+        userAuthenticationDAO.signOut();
     }
 }
