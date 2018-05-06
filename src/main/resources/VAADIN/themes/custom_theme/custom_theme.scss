@@ -12,4 +12,23 @@
     background: #9cd8fa;
     border-color: #1d7abe;
   }
+
+  .v-menubar {
+    border-radius: 2px;
+    border: 0;
+  }
+
+  .v-menubar > .v-menubar-menuitem {
+    border: 0;
+    background-color: #9cd8fa;
+  }
+
+  .v-slot-navBarLayout {
+    padding-left: 40%;
+    //background-color: #9cd8fa;
+  }
+
+  .v-margin-top {
+    padding-top: 25px;
+  }
 }

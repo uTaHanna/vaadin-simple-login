@@ -61,13 +61,15 @@ public class ViewNavigator extends UI {
     public void init(VaadinRequest request){
 
         // to be made into a navigation bar in the style sheet
-        navBar.addItem("Home", null, e -> navigator.navigateTo(MainView.NAME));
-        navBar.addItem("Profile", null, e -> navigator.navigateTo(ProfileView.NAME));
-        navBar.addItem("Sign Out", null, e -> signOut());
+        navBar.addItem("Home", e -> navigator.navigateTo(MainView.NAME));
+        navBar.addItem("Profile", e -> navigator.navigateTo(ProfileView.NAME));
+        navBar.addItem("Sign Out", e -> signOut());
+        HorizontalLayout navBarLayout = new HorizontalLayout(navBar);
+        navBarLayout.setStyleName("navBarLayout");
+        navBarLayout.setVisible(false);
 
         componentContainer.setSizeFull();
-        VerticalLayout overarchingLayout = new VerticalLayout(navBar, componentContainer);
-        navBar.setVisible(false);
+        VerticalLayout overarchingLayout = new VerticalLayout(navBarLayout, componentContainer);
         setContent(overarchingLayout);
 
         navigator.init(this, componentContainer);
@@ -101,10 +103,10 @@ public class ViewNavigator extends UI {
 
                 if(isRestrictedView(viewChangeEvent)){
 
-                    navBar.setVisible(true);
+                    navBarLayout.setVisible(true);
                 } else{
 
-                    navBar.setVisible(false);
+                    navBarLayout.setVisible(false);
                 }
             }
         });
