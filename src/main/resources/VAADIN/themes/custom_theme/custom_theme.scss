@@ -14,21 +14,30 @@
   }
 
   .v-menubar {
-    border-radius: 2px;
     border: 0;
   }
 
   .v-menubar > .v-menubar-menuitem {
     border: 0;
-    background-color: #9cd8fa;
+    background-color: #494a4b;
+    color: ghostwhite;
   }
 
-  .v-slot-navBarLayout {
-    padding-left: 40%;
-    //background-color: #9cd8fa;
+  .v-menubar > .v-menubar-menuitem:first-child{
+    border-radius: 0;
   }
 
-  .v-margin-top {
-    padding-top: 25px;
+  .v-menubar > .v-menubar-menuitem:last-child {
+    border-radius: 0 0 3px 0;
+  }
+
+  //.v-slot-navBarLayout {
+  //  padding-left: 40%;
+  //  //background-color: #9cd8fa;
+  //}
+
+  .v-verticallayout-overarchingLayout {
+    padding-left: 0;
+    padding-top: 0;
   }
 }

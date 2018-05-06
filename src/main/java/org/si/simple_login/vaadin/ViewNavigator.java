@@ -70,6 +70,7 @@ public class ViewNavigator extends UI {
 
         componentContainer.setSizeFull();
         VerticalLayout overarchingLayout = new VerticalLayout(navBarLayout, componentContainer);
+        overarchingLayout.setStyleName("overarchingLayout");
         setContent(overarchingLayout);
 
         navigator.init(this, componentContainer);
