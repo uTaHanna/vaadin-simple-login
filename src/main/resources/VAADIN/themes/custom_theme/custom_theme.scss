@@ -13,6 +13,27 @@
     border-color: #1d7abe;
   }
 
+  .v-verticallayout-overarchingLayout {
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+  }
+
+  /* navigation bar styling */
+
+  .v-slot-navBarLayout {
+    width: 100%;
+    background-color: #494a4b;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
+  }
+
+  .v-slot-navBarRight {
+    position: absolute;
+    right: 0;
+  }
+
   .v-menubar {
     border: 0;
   }
@@ -28,16 +49,10 @@
   }
 
   .v-menubar > .v-menubar-menuitem:last-child {
-    border-radius: 0 0 3px 0;
+    border-radius: 0;
   }
 
-  //.v-slot-navBarLayout {
-  //  padding-left: 40%;
-  //  //background-color: #9cd8fa;
-  //}
-
-  .v-verticallayout-overarchingLayout {
-    padding-left: 0;
-    padding-top: 0;
+  .v-menubar > .v-menubar-menuitem:first-child:last-child {
+    border-radius: 0;
   }
 }
