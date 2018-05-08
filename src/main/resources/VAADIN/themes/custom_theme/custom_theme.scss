@@ -1,4 +1,4 @@
-/* A test of Vaadin UI styling based on the simple example here:
+/* Vaadin UI styling based on this source:
    https://vaadin.com/docs/v8/framework/themes/themes-creating.html */
 
 /* Ignore the IntelliJ error sign for this import statement */
@@ -14,9 +14,9 @@
   }
 
   .v-verticallayout-overarchingLayout {
-    padding-left: 0;
     padding-top: 0;
     padding-right: 0;
+    padding-left: 0;
   }
 
   /* navigation bar styling */

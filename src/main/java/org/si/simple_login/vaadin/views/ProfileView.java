@@ -12,7 +12,7 @@ import com.vaadin.ui.VerticalLayout;
 public class ProfileView extends CustomComponent implements View {
 
     public static final String NAME = "profile";
-    private Label label = new Label("temp profile page");
+    private Label label = new Label("Profile page (to be implemented)");
 
     public ProfileView(){
 

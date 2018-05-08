@@ -26,8 +26,6 @@ import java.util.HashSet;
  * (https://vaadin.com/blog/implementing-remember-me-with-vaadin). More generally,
  * my underlying background knowledge of Vaadin apps owes to another tutorial by
  * the same author (https://vaadin.com/blog/building-a-web-ui-for-mysql-databases-in-plain-java-).
- * For the navigation bar, in particular, the following sources were consulted:
- * https://www.youtube.com/watch?v=-xejxaIQTO8; https://vaadin.com/forum/thread/590939
  *
  * More detailed orientation on the use of Vaadin binders was gained from the tutorial by Kirill Bulatov
  * (https://vaadin.com/blog/15624687). The page navigation is based on the official
@@ -38,6 +36,9 @@ import java.util.HashSet;
  *
  * View access control logic is from the example in the official Vaadin documentation:
  * https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html
+ *
+ * For the navigation bar, the ideas owe to the following sources:
+ * https://www.youtube.com/watch?v=-xejxaIQTO8; https://vaadin.com/forum/thread/590939
  */
 
 @SpringUI(path = "/simple_login")
@@ -51,11 +52,10 @@ public class ViewNavigator extends UI {
     private ComponentContainer componentContainer = new Navigator.EmptyView();
     private MenuBar navBarLeft = new MenuBar();
     private MenuBar navBarRight = new MenuBar();
-
     private HashSet<String> restrictedViewNames = new HashSet<>();
 
     @Autowired
-    public ViewNavigator(SpringNavigator navigator, UserAuthenticationDAOSQL userAuthenticationDAOSQL){
+    public ViewNavigator(SpringNavigator navigator, UserAuthenticationDAO userAuthenticationDAOSQL){
 
         ViewNavigator.navigator = navigator;
         this.userAuthenticationDAO = userAuthenticationDAOSQL;
@@ -63,7 +63,7 @@ public class ViewNavigator extends UI {
 
     public void init(VaadinRequest request){
 
-        // set up the navigation bar; styling done in the scss file
+        // set up the navigation bar; styling is done in the scss file
         navBarLeft.addItem("Home", e -> navigator.navigateTo(MainView.NAME));
         navBarLeft.addItem("Profile", e -> navigator.navigateTo(ProfileView.NAME));
         navBarRight.addItem("Sign Out", e -> signOut());
@@ -78,13 +78,13 @@ public class ViewNavigator extends UI {
         overarchingLayout.setStyleName("overarchingLayout");
         setContent(overarchingLayout);
 
-        // initialize navigation with access control; show the nav bar for authenticated access
+        // initialize navigation with access control; show the nav bar only for authenticated access
         navigator.init(this, componentContainer);
         restrictedViewNames.add(MainView.NAME);
         restrictedViewNames.add(ProfileView.NAME);
         navigator.addViewChangeListener(new ViewChangeListener(){
 
-            // allow only authenticated users into the main page; attempts to access by the url will fail
+            // allow only authenticated users into the restricted pages; attempts to access by the url will fail
             @Override
             public boolean beforeViewChange(ViewChangeEvent viewChangeEvent){
 
@@ -124,6 +124,7 @@ public class ViewNavigator extends UI {
      */
     private boolean isRestrictedView(ViewChangeListener.ViewChangeEvent viewChangeEvent){
 
+        // remove the suffix in a view class name, "View", to facilitate matching
         String viewNameSuffix = "view";
         String viewClassNameTemp = viewChangeEvent.getNewView().getClass().getSimpleName().toLowerCase();
         String viewClassName = viewClassNameTemp.split(viewNameSuffix)[0];

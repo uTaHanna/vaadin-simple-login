@@ -37,11 +37,13 @@ For sign-up,<br>
 
 ![sign_up](/md_images/sign_up.PNG)
 
-For sign-in,<br>
+For sign-in and navigation,<br>
 
 ![sign_in](/md_images/sign_in.PNG)
 
 ![main](/md_images/main.PNG)
+
+![profile](/md_images/profile.PNG)
 
 If you do SQL SELECT on the MySQL shell console, you will see that the password is in fact encrypted.<br>
 
@@ -65,7 +67,11 @@ https://vaadin.github.io/spring-tutorial/
 
 For UI styling,<br>
 Vaadin forum thread on resources configuration: https://vaadin.com/forum/thread/12163090<br>
-Vaadin documentation: https://vaadin.com/docs/v8/framework/themes/themes-creating.html<br>  
+Vaadin documentation: https://vaadin.com/docs/v8/framework/themes/themes-creating.html<br>
+
+For the navigation bar in particular,<br>
+Demo by Alejandro Duarte: https://www.youtube.com/watch?v=-xejxaIQTO8<br>
+Vaadin forum discussion: https://vaadin.com/forum/thread/590939<br>   
 
 For Spring configuration of authentication,<br>
 eparvan's post: https://stackoverflow.com/questions/42562893/could-not-autowire-no-beans-of-userdetailservice-type-found<br>
