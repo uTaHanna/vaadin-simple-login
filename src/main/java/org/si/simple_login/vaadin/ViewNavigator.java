@@ -1,22 +1,27 @@
 package org.si.simple_login.vaadin;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.PushStateNavigation;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.spring.navigator.SpringNavigator;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.UI;
+import com.vaadin.ui.*;
+import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.si.simple_login.repository.impl.UserAuthenticationDAOSQL;
 import org.si.simple_login.vaadin.views.LoginView;
 import org.si.simple_login.vaadin.views.MainView;
+import org.si.simple_login.vaadin.views.ProfileView;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
 
 
 /**
- * The basic UI design of this app and so the related backend functionalities are
+ * The basic UI design of this app and so the related backend functionalities is
  * based on the Vaadin tutorial by Alejandro Duarte
  * (https://vaadin.com/blog/implementing-remember-me-with-vaadin). More generally,
  * my underlying background knowledge of Vaadin apps owes to another tutorial by
@@ -31,6 +36,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * View access control logic is from the example in the official Vaadin documentation:
  * https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html
+ *
+ * For the navigation bar, the ideas owe to the following sources:
+ * https://www.youtube.com/watch?v=-xejxaIQTO8; https://vaadin.com/forum/thread/590939
  */
 
 @SpringUI(path = "/simple_login")
@@ -40,35 +48,96 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ViewNavigator extends UI {
 
     public static SpringNavigator navigator;
+    private UserAuthenticationDAO userAuthenticationDAO;
+    private ComponentContainer componentContainer = new Navigator.EmptyView();
+    private MenuBar navBarLeft = new MenuBar();
+    private MenuBar navBarRight = new MenuBar();
+    private HashSet<String> restrictedViewNames = new HashSet<>();
 
     @Autowired
-    public void setNavigator(SpringNavigator navigator){
+    public ViewNavigator(SpringNavigator navigator, UserAuthenticationDAO userAuthenticationDAOSQL){
 
         ViewNavigator.navigator = navigator;
+        this.userAuthenticationDAO = userAuthenticationDAOSQL;
     }
 
     public void init(VaadinRequest request){
 
-        navigator.init(this, this);
+        // set up the navigation bar; styling is done in the scss file
+        navBarLeft.addItem("Home", e -> navigator.navigateTo(MainView.NAME));
+        navBarLeft.addItem("Profile", e -> navigator.navigateTo(ProfileView.NAME));
+        navBarRight.addItem("Sign Out", e -> signOut());
+        navBarRight.addStyleName("navBarRight");
+        HorizontalLayout navBarLayout = new HorizontalLayout(navBarLeft, navBarRight);
+        navBarLayout.setStyleName("navBarLayout");
+        navBarLayout.setVisible(false);
 
-        // allows only authenticated users into the main page; attempts to access by the url will fail
-        navigator.addViewChangeListener(viewChangeEvent -> {
-            // beforeViewChange of interface ViewChangeListener implemented by lambda
+        // set up the meta-layout for showing views
+        componentContainer.setSizeFull();
+        VerticalLayout overarchingLayout = new VerticalLayout(navBarLayout, componentContainer);
+        overarchingLayout.setStyleName("overarchingLayout");
+        setContent(overarchingLayout);
 
-            boolean accessPermission = false;
-            String viewClassName = viewChangeEvent.getNewView().getClass().getSimpleName().toLowerCase();
+        // initialize navigation with access control; show the nav bar only for authenticated access
+        navigator.init(this, componentContainer);
+        restrictedViewNames.add(MainView.NAME);
+        restrictedViewNames.add(ProfileView.NAME);
+        navigator.addViewChangeListener(new ViewChangeListener(){
 
-            if (viewClassName.contains(MainView.NAME) &&
-                    VaadinSession.getCurrent().getAttribute(UserAuthenticationDAOSQL.AUTHENTICATED_USER_NAME) == null){
+            // allow only authenticated users into the restricted pages; attempts to access by the url will fail
+            @Override
+            public boolean beforeViewChange(ViewChangeEvent viewChangeEvent){
 
-                Notification.show("Please log in", Notification.Type.ERROR_MESSAGE);
-                navigator.navigateTo(LoginView.NAME);
-            } else{
+                boolean accessPermission = false;
 
-                accessPermission = true;
+                if(isRestrictedView(viewChangeEvent) &&
+                        VaadinSession.getCurrent().getAttribute(UserAuthenticationDAOSQL.AUTHENTICATED_USER_NAME) == null){
+
+                    Notification.show("Please log in", Notification.Type.ERROR_MESSAGE);
+                    navigator.navigateTo(LoginView.NAME);
+                } else{
+
+                    accessPermission = true;
+                }
+
+                return accessPermission;
             }
 
-            return accessPermission;
+            @Override
+            public void afterViewChange(ViewChangeEvent viewChangeEvent){
+
+                if(isRestrictedView(viewChangeEvent)){
+
+                    navBarLayout.setVisible(true);
+                } else{
+
+                    navBarLayout.setVisible(false);
+                }
+            }
         });
+    }
+
+    /**
+     * Check if requested view needs authentication, as specified in restrictedViewNames
+     * @param viewChangeEvent prompts the confirmation procedure
+     * @return true if the requested view is included in the set of restricted views; else, false
+     */
+    private boolean isRestrictedView(ViewChangeListener.ViewChangeEvent viewChangeEvent){
+
+        // remove the suffix in a view class name, "View", to facilitate matching
+        String viewNameSuffix = "view";
+        String viewClassNameTemp = viewChangeEvent.getNewView().getClass().getSimpleName().toLowerCase();
+        String viewClassName = viewClassNameTemp.split(viewNameSuffix)[0];
+
+        return restrictedViewNames.contains(viewClassName);
+    }
+
+    /**
+     * Do the logout procedures, including redirection to the login page
+     */
+    private void signOut(){
+
+        navigator.navigateTo(LoginView.NAME);
+        userAuthenticationDAO.signOut();
     }
 }
