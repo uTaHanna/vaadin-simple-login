@@ -71,7 +71,8 @@ Vaadin documentation: https://vaadin.com/docs/v8/framework/themes/themes-creatin
 
 For the navigation bar in particular,<br>
 Demo by Alejandro Duarte: https://www.youtube.com/watch?v=-xejxaIQTO8<br>
-Vaadin forum discussion: https://vaadin.com/forum/thread/590939<br>   
+Vaadin forum discussion: https://vaadin.com/forum/thread/590939<br>
+Vaadin documentation: https://vaadin.com/docs/v8/framework/components/components-menubar.html<br>   
 
 For Spring configuration of authentication,<br>
 eparvan's post: https://stackoverflow.com/questions/42562893/could-not-autowire-no-beans-of-userdetailservice-type-found<br>

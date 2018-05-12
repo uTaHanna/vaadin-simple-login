@@ -10,6 +10,7 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.SpringViewDisplay;
 import com.vaadin.spring.navigator.SpringNavigator;
 import com.vaadin.ui.*;
+import com.vaadin.ui.MenuBar;
 import org.si.simple_login.repository.UserAuthenticationDAO;
 import org.si.simple_login.repository.impl.UserAuthenticationDAOSQL;
 import org.si.simple_login.vaadin.views.LoginView;
@@ -17,7 +18,9 @@ import org.si.simple_login.vaadin.views.MainView;
 import org.si.simple_login.vaadin.views.ProfileView;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 
 /**
@@ -38,7 +41,9 @@ import java.util.HashSet;
  * https://vaadin.com/docs/v8/framework/articles/AccessControlForViews.html
  *
  * For the navigation bar, the ideas owe to the following sources:
- * https://www.youtube.com/watch?v=-xejxaIQTO8; https://vaadin.com/forum/thread/590939
+ * https://www.youtube.com/watch?v=-xejxaIQTO8;
+ * https://vaadin.com/forum/thread/590939;
+ * https://vaadin.com/docs/v8/framework/components/components-menubar.html
  */
 
 @SpringUI(path = "/simple_login")
@@ -53,6 +58,7 @@ public class ViewNavigator extends UI {
     private MenuBar navBarLeft = new MenuBar();
     private MenuBar navBarRight = new MenuBar();
     private HashSet<String> restrictedViewNames = new HashSet<>();
+    private HashMap<String, Integer> menuMap = new HashMap<>();
 
     @Autowired
     public ViewNavigator(SpringNavigator navigator, UserAuthenticationDAO userAuthenticationDAOSQL){
@@ -64,13 +70,21 @@ public class ViewNavigator extends UI {
     public void init(VaadinRequest request){
 
         // set up the navigation bar; styling is done in the scss file
-        navBarLeft.addItem("Home", e -> navigator.navigateTo(MainView.NAME));
+        navBarLeft.addItem("Home",  e -> navigator.navigateTo(MainView.NAME));
         navBarLeft.addItem("Profile", e -> navigator.navigateTo(ProfileView.NAME));
+
         navBarRight.addItem("Sign Out", e -> signOut());
         navBarRight.addStyleName("navBarRight");
+
         HorizontalLayout navBarLayout = new HorizontalLayout(navBarLeft, navBarRight);
         navBarLayout.setStyleName("navBarLayout");
+
         navBarLayout.setVisible(false);
+
+        // associate the navigation items above with their respective indices in the menu bar
+        menuMap.put(MainView.NAME, 0);
+        menuMap.put(ProfileView.NAME, 1);
+        menuMap.put(LoginView.NAME, 2);
 
         // set up the meta-layout for showing views
         componentContainer.setSizeFull();
@@ -84,13 +98,17 @@ public class ViewNavigator extends UI {
         restrictedViewNames.add(ProfileView.NAME);
         navigator.addViewChangeListener(new ViewChangeListener(){
 
+            String previousViewName;
+            List<MenuBar.MenuItem> menuItems = navBarLeft.getItems();
+
             // allow only authenticated users into the restricted pages; attempts to access by the url will fail
             @Override
             public boolean beforeViewChange(ViewChangeEvent viewChangeEvent){
 
                 boolean accessPermission = false;
+                String viewName = extractViewName(viewChangeEvent);
 
-                if(isRestrictedView(viewChangeEvent) &&
+                if(restrictedViewNames.contains(viewName) &&
                         VaadinSession.getCurrent().getAttribute(UserAuthenticationDAOSQL.AUTHENTICATED_USER_NAME) == null){
 
                     Notification.show("Please log in", Notification.Type.ERROR_MESSAGE);
@@ -99,16 +117,36 @@ public class ViewNavigator extends UI {
 
                     accessPermission = true;
                 }
-
                 return accessPermission;
             }
 
+            /**
+             * The logic for marking the current active menu item for styling is from
+             * https://vaadin.com/docs/v8/framework/components/components-menubar.html
+             *
+             * It seems, however, more suitable to select the active menu item here, rather than
+             * in the menuSelected of the MenuBar.Command, if one wants to set the initial
+             * view for special styling as well before the user clicks any menu item. Also, these
+             * few lines nicely can handle the cases of browser refresh.
+             */
             @Override
             public void afterViewChange(ViewChangeEvent viewChangeEvent){
 
-                if(isRestrictedView(viewChangeEvent)){
+                String currentViewName = extractViewName(viewChangeEvent);
+
+                if(restrictedViewNames.contains(currentViewName)){
 
                     navBarLayout.setVisible(true);
+                    MenuBar.MenuItem currentView = menuItems.get(menuMap.get(currentViewName));
+
+                    if(previousViewName != null){
+
+                        MenuBar.MenuItem previousView = menuItems.get(menuMap.get(previousViewName));
+                        previousView.setStyleName(null);
+                    }
+                    currentView.setStyleName("activeMenuItem");
+                    previousViewName = currentViewName;
+
                 } else{
 
                     navBarLayout.setVisible(false);
@@ -118,18 +156,17 @@ public class ViewNavigator extends UI {
     }
 
     /**
-     * Check if requested view needs authentication, as specified in restrictedViewNames
-     * @param viewChangeEvent prompts the confirmation procedure
-     * @return true if the requested view is included in the set of restricted views; else, false
+     * Expresses the current view name in lower case without the suffix
+     * @param viewChangeEvent prompts the editing
+     * @return processed view name
      */
-    private boolean isRestrictedView(ViewChangeListener.ViewChangeEvent viewChangeEvent){
+    private String extractViewName(ViewChangeListener.ViewChangeEvent viewChangeEvent){
 
-        // remove the suffix in a view class name, "View", to facilitate matching
         String viewNameSuffix = "view";
         String viewClassNameTemp = viewChangeEvent.getNewView().getClass().getSimpleName().toLowerCase();
-        String viewClassName = viewClassNameTemp.split(viewNameSuffix)[0];
 
-        return restrictedViewNames.contains(viewClassName);
+        // remove the suffix in a view class name, "view", to facilitate matching
+        return viewClassNameTemp.split(viewNameSuffix)[0];
     }
 
     /**

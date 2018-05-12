@@ -23,7 +23,7 @@
 
   .v-slot-navBarLayout {
     width: 100%;
-    background-color: #494a4b;
+    background-color: #353536;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: black;
@@ -34,13 +34,20 @@
     right: 0;
   }
 
+  .v-menubar-menuitem-activeMenuItem {
+    border-top-style: solid !important;
+    border-top-width: 2px !important;
+    border-top-color: #5f92f9 !important;
+    background: #454444 !important;
+  }
+
   .v-menubar {
     border: 0;
   }
 
   .v-menubar > .v-menubar-menuitem {
     border: 0;
-    background-color: #494a4b;
+    background-color: #353536;
     color: ghostwhite;
   }
 
