@@ -17,7 +17,7 @@ import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 @UIScope
 public class SignUpView extends CustomComponent implements View {
 
-    private UserAuthenticationDAO userAuthenticationDAOSQL;
+    private UserAuthenticationDAO userAuthenticationDAO;
 
     public static final String NAME = "sign_up";
     private Binder<User> userBinder = new Binder<>();
@@ -28,9 +28,9 @@ public class SignUpView extends CustomComponent implements View {
     private Button signUpButton = new Button("Sign up", e -> signUp(user));
 
     @Autowired
-    public void setUserAuthenticationDAOSQL(UserAuthenticationDAO userAuthenticationDAOSQL){
+    public void setUserAuthenticationDAO(UserAuthenticationDAO userAuthenticationDAOSQL){
 
-        this.userAuthenticationDAOSQL = userAuthenticationDAOSQL;
+        userAuthenticationDAO = userAuthenticationDAOSQL;
     }
 
     public SignUpView(){
@@ -65,7 +65,7 @@ public class SignUpView extends CustomComponent implements View {
     private void signUp(User userRequest){
 
         try {
-            userAuthenticationDAOSQL.addNewUser(userRequest);
+            userAuthenticationDAO.addNewUser(userRequest);
             navigator.navigateTo(LoginView.NAME);
         } catch (Exception e){
 

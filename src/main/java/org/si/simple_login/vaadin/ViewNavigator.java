@@ -54,6 +54,7 @@ public class ViewNavigator extends UI {
 
     public static SpringNavigator navigator;
     private UserAuthenticationDAO userAuthenticationDAO;
+
     private ComponentContainer componentContainer = new Navigator.EmptyView();
     private MenuBar navBarLeft = new MenuBar();
     private MenuBar navBarRight = new MenuBar();
@@ -64,13 +65,13 @@ public class ViewNavigator extends UI {
     public ViewNavigator(SpringNavigator navigator, UserAuthenticationDAO userAuthenticationDAOSQL){
 
         ViewNavigator.navigator = navigator;
-        this.userAuthenticationDAO = userAuthenticationDAOSQL;
+        userAuthenticationDAO = userAuthenticationDAOSQL;
     }
 
     public void init(VaadinRequest request){
 
         // set up the navigation bar; styling is done in the scss file
-        navBarLeft.addItem("Home",  e -> navigator.navigateTo(MainView.NAME));
+        navBarLeft.addItem("Home", e -> navigator.navigateTo(MainView.NAME));
         navBarLeft.addItem("Profile", e -> navigator.navigateTo(ProfileView.NAME));
 
         navBarRight.addItem("Sign Out", e -> signOut());

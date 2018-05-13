@@ -18,7 +18,7 @@ import static org.si.simple_login.vaadin.ViewNavigator.navigator;
 @UIScope
 public class LoginView extends CustomComponent implements View {
 
-    private UserAuthenticationDAO userAuthenticationDAOSQL;
+    private UserAuthenticationDAO userAuthenticationDAO;
 
     public static final String NAME = "";
     private Binder<User> userBinder = new Binder<>();
@@ -30,9 +30,9 @@ public class LoginView extends CustomComponent implements View {
             ContentMode.HTML);
 
     @Autowired
-    public void setUserAuthenticationDAOSQL(UserAuthenticationDAO userAuthenticationDAOSQL){
+    public void setUserAuthenticationDAO(UserAuthenticationDAO userAuthenticationDAOSQL){
 
-        this.userAuthenticationDAOSQL = userAuthenticationDAOSQL;
+        userAuthenticationDAO = userAuthenticationDAOSQL;
     }
 
     public LoginView(){
@@ -64,7 +64,7 @@ public class LoginView extends CustomComponent implements View {
      */
     private void signIn(User userRequest){
 
-        if(userAuthenticationDAOSQL.checkAuthentication(userRequest)){
+        if(userAuthenticationDAO.checkAuthentication(userRequest)){
 
             navigator.navigateTo(MainView.NAME);
         } else{
