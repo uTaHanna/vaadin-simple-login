@@ -62,10 +62,10 @@ public class ViewNavigator extends UI {
     private HashMap<String, Integer> menuMap = new HashMap<>();
 
     @Autowired
-    public ViewNavigator(SpringNavigator navigator, UserAuthenticationDAO userAuthenticationDAOSQL){
+    public ViewNavigator(SpringNavigator navigator, UserAuthenticationDAO userAuthenticationDAO){
 
         ViewNavigator.navigator = navigator;
-        userAuthenticationDAO = userAuthenticationDAOSQL;
+        this.userAuthenticationDAO = userAuthenticationDAO;
     }
 
     public void init(VaadinRequest request){

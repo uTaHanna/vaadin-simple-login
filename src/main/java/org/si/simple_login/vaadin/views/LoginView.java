@@ -30,9 +30,9 @@ public class LoginView extends CustomComponent implements View {
             ContentMode.HTML);
 
     @Autowired
-    public void setUserAuthenticationDAO(UserAuthenticationDAO userAuthenticationDAOSQL){
+    public void setUserAuthenticationDAO(UserAuthenticationDAO userAuthenticationDAO){
 
-        userAuthenticationDAO = userAuthenticationDAOSQL;
+        this.userAuthenticationDAO = userAuthenticationDAO;
     }
 
     public LoginView(){

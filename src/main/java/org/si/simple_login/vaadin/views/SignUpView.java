@@ -28,9 +28,9 @@ public class SignUpView extends CustomComponent implements View {
     private Button signUpButton = new Button("Sign up", e -> signUp(user));
 
     @Autowired
-    public void setUserAuthenticationDAO(UserAuthenticationDAO userAuthenticationDAOSQL){
+    public void setUserAuthenticationDAO(UserAuthenticationDAO userAuthenticationDAO){
 
-        userAuthenticationDAO = userAuthenticationDAOSQL;
+        this.userAuthenticationDAO = userAuthenticationDAO;
     }
 
     public SignUpView(){
