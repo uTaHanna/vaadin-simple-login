@@ -90,6 +90,7 @@ public class ViewNavigator extends UI {
         // set up the meta-layout for showing views
         componentContainer.setSizeFull();
         VerticalLayout overarchingLayout = new VerticalLayout(navBarLayout, componentContainer);
+        overarchingLayout.setSizeFull();
         overarchingLayout.setStyleName("overarchingLayout");
         setContent(overarchingLayout);
 
